@@ -19,8 +19,8 @@ const SponsorsPage: FC = () => {
           Our Sponsors
         </h1>
         <p className="text-lg text-center text-transparent bg-clip-text bg-gradient-to-r from-red-200 via-red-500 to-red-500 mb-10">
-  XGMX is proud to carry and be sponsored by some of the industry's finest brands.
-</p>
+          XGMX is proud to carry and be sponsored by some of the industry&apos;s finest brands.
+        </p>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-6 justify-items-center">
           {sponsors.map((sponsor) => (
             <div
@@ -41,3 +41,4 @@ const SponsorsPage: FC = () => {
 };
 
 export default SponsorsPage;
+
