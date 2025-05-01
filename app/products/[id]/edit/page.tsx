@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
-import { Product } from "@/types/product"; // Adjust the import path as necessary
+import { Product } from "@/types/product"; 
 
 interface EditProductPageProps {
   params: {
@@ -24,6 +24,7 @@ export default function EditProductPage({ params }: EditProductPageProps) {
     description: "",
     price: 0,
     image: "", 
+    category: "", 
   });
 
   useEffect(() => {
@@ -41,7 +42,8 @@ export default function EditProductPage({ params }: EditProductPageProps) {
           title: product.title,
           description: product.description,
           price: product.price,
-          image: product.image, 
+          image: product.image,
+          category: product.category, 
         });
         setError(null);
       } catch (err) {
@@ -81,9 +83,8 @@ export default function EditProductPage({ params }: EditProductPageProps) {
         throw new Error("Failed to update product");
       }
 
-      // Redirect to product details page after successful update
       router.push("/products");
-      router.refresh(); // Refresh the page data
+      router.refresh();
     } catch (error) {
       console.error("Error updating product:", error);
       setError("Failed to update product. Please try again.");
@@ -188,6 +189,22 @@ export default function EditProductPage({ params }: EditProductPageProps) {
                 onChange={handleChange}
                 className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 placeholder="Enter product image URL"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label htmlFor="category" className="block font-medium text-white">
+                Category <span className="text-red-500">*</span>
+              </label>
+              <input
+                id="category"
+                name="category"
+                type="text"
+                required
+                value={formData.category || ""}
+                onChange={handleChange}
+                className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                placeholder="Enter product category"
               />
             </div>
 

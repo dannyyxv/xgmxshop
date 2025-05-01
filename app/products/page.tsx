@@ -1,8 +1,9 @@
 import { FC } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import Header from "@/components/Header"; // Add the import for Header
-import ProductCard from "@/components/ProductCard"; // Make sure ProductCard is defined properly
+import Header from "@/components/Header"; 
+import ProductCard from "@/components/ProductCard";
+import { SignedIn } from "@clerk/nextjs"; 
 
 interface Product {
   id: number;
@@ -40,21 +41,24 @@ const ProductsPage: FC = async () => {
       <main className="container mx-auto px-4 py-8">
         <div className="flex justify-center items-center mb-8">
           <h1 className="text-3xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-blue-500 to-purple-500">
-            Daniel's Picks
+            Daniel&apos;s Picks
           </h1>
         </div>
-        <div className="flex space-x-4 mb-8">
-          <Link href="/products/add">
-            <Button className="bg-gradient-to-r from-blue-500 to-gray-700 hover:from-green-600 hover:to-green-800">
-              Add New Product
-            </Button>
-          </Link>
-          <Link href="/products/delete">
-            <Button className="bg-red-500 hover:bg-red-600 text-white">
-              Delete a Product
-            </Button>
-          </Link>
-        </div>
+
+        <SignedIn>
+          <div className="flex space-x-4 mb-8">
+            <Link href="/products/add">
+              <Button className="bg-gradient-to-r from-blue-500 to-gray-700 hover:from-green-600 hover:to-green-800">
+                Add New Product
+              </Button>
+            </Link>
+            <Link href="/products/delete">
+              <Button className="bg-red-500 hover:bg-red-600 text-white">
+                Delete a Product
+              </Button>
+            </Link>
+          </div>
+        </SignedIn>
 
         {products.length === 0 ? (
           <p className="text-center text-gray-500">No products available at the moment.</p>

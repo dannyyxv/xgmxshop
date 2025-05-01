@@ -13,7 +13,8 @@ export default function AddProductPage() {
     title: "",
     description: "",
     price: "",
-    image: "", 
+    image: "",
+    category: "", 
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -28,7 +29,7 @@ export default function AddProductPage() {
     try {
       const dataToSubmit = {
         ...formData,
-        price: formData.price ? `$${formData.price}` : undefined
+        price: formData.price ? `$${formData.price}` : undefined,
       };
 
       const baseUrl = process.env.NEXT_PUBLIC_APP_URL;
@@ -44,9 +45,8 @@ export default function AddProductPage() {
         throw new Error("Failed to add product");
       }
 
-      // Redirect to home page after successful creation
       router.push("/products");
-      router.refresh(); // Refresh the page data
+      router.refresh();
     } catch (error) {
       console.error("Error adding product:", error);
       alert("Failed to add product. Please try again.");
@@ -133,9 +133,25 @@ export default function AddProductPage() {
               />
             </div>
 
+            <div className="space-y-2">
+              <label htmlFor="category" className="block font-medium text-white">
+                Category <span className="text-red-500">*</span>
+              </label>
+              <input
+                id="category"
+                name="category"
+                type="text"
+                required
+                value={formData.category}
+                onChange={handleChange}
+                className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                placeholder="Enter product category"
+              />
+            </div>
+
             <div className="pt-4">
-              <Button 
-                type="submit" 
+              <Button
+                type="submit"
                 className="w-full bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800"
                 disabled={loading}
               >
